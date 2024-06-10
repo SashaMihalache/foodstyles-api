@@ -1,6 +1,7 @@
 import { entityRepository } from '../repositories';
 import { EntityType, GroupEntity, Model } from '../types/entity';
 import { filterStopWords } from '../utils/queries';
+import { isSimilar } from '../utils/string';
 
 export const entityService = {
   async extractEntities(searchTerm: string) {
@@ -22,7 +23,7 @@ export const entityService = {
 
   generateCombinationsRecursively(data: any[]) {
     const result: any[] = [];
-    const uniqueTypes = this.filterUniqueTypes(data);
+    const uniqueTypes = this.computeUniqueTypes(data);
 
     const helper = (acc: any, usedWords: string[], index: number) => {
       if (index === data.length) {
@@ -54,20 +55,13 @@ export const entityService = {
     return result;
   },
 
-  filterUniqueTypes(data: any[]) {
+  computeUniqueTypes(data: any[]) {
     let uniqueTypes = [...new Set(data.map((item) => item.type))];
     let typesToRemove = new Set();
 
     for (let i = 0; i < data.length; i++) {
       for (let j = i + 1; j < data.length; j++) {
-        if (
-          data[i].name
-            .toLocaleLowerCase()
-            .includes(data[j].name.toLocaleLowerCase()) ||
-          data[j].name
-            .toLocaleLowerCase()
-            .includes(data[i].name.toLocaleLowerCase())
-        ) {
+        if (isSimilar(data[i].name, data[j].name)) {
           typesToRemove.add(data[j].type);
         }
       }
