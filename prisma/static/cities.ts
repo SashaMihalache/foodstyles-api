@@ -1,6 +1,6 @@
 import { Model } from '../../src/types/entity';
 
-export const cities: Model[] = [
+export const cities: Omit<Model, 'type'>[] = [
   { id: 1, name: 'London' },
   { id: 2, name: 'Birmingham' },
   { id: 3, name: 'Glasgow' },

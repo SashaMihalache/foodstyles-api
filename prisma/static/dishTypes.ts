@@ -1,6 +1,6 @@
 import { Model } from '../../src/types/entity';
 
-export const dishTypes: Model[] = [
+export const dishTypes: Omit<Model, 'type'>[] = [
   { id: 1, name: 'Meats' },
   { id: 2, name: 'Lamb' },
   { id: 3, name: 'Kofte' },

@@ -1,6 +1,6 @@
 import { Model } from '../../src/types/entity';
 
-export const brands: Model[] = [
+export const brands: Omit<Model, 'type'>[] = [
   { id: 1, name: 'Costa Coffee' },
   { id: 2, name: 'Greggs' },
   { id: 3, name: 'Subway' },
