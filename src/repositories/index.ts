@@ -1,3 +1,3 @@
-import { entityRepository } from './entity.repository';
+import { entityRepository } from './entityRepository';
 
 export { entityRepository };

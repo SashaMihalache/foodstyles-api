@@ -1,9 +1,8 @@
-import { PrismaClient } from '@prisma/client';
 import { cities } from './static/cities';
 import { dishTypes } from './static/dishTypes';
 import { brands } from './static/brands';
 import { diets } from './static/diets';
-const prisma = new PrismaClient();
+import prisma from './client';
 
 async function seed() {
   // Seed your database here
