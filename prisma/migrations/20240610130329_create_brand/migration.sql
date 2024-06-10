@@ -1,9 +1,9 @@
 -- CreateTable
-CREATE TABLE "City" (
-    "id" TEXT NOT NULL,
+CREATE TABLE "Brand" (
+    "id" SERIAL NOT NULL,
     "name" VARCHAR(255) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "City_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Brand_pkey" PRIMARY KEY ("id")
 );
