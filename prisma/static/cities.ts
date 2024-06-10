@@ -1,4 +1,4 @@
-import { Model } from '../../src/types/model';
+import { Model } from '../../src/types/entity';
 
 export const cities: Model[] = [
   { id: 1, name: 'London' },
