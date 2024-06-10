@@ -5,7 +5,6 @@ import { diets } from './static/diets';
 import prisma from './client';
 
 async function seed() {
-  // Seed your database here
   await prisma.city.createMany({
     data: cities,
   });

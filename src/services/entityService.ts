@@ -20,26 +20,6 @@ export const entityService = {
     return result;
   },
 
-  groupEntitiesByType(entities: any[]) {
-    const groupedByTypes: any = {};
-
-    for (let i = 0; i < entities.length; i++) {
-      const entity: Model = entities[i];
-      const thinnedEntity: Omit<Model, 'type'> = {
-        id: entity.id,
-        name: entity.name,
-      };
-
-      if (groupedByTypes[entity.type]) {
-        groupedByTypes[entity.type].push(thinnedEntity);
-      } else {
-        groupedByTypes[entity.type] = [thinnedEntity];
-      }
-    }
-
-    return groupedByTypes;
-  },
-
   generateCombinationsRecursively(data: any[]) {
     const result: any[] = [];
     const uniqueTypes = this.filterUniqueTypes(data);
