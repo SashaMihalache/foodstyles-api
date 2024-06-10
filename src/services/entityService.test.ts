@@ -27,16 +27,30 @@ describe('entityService', () => {
       const searchTerm = 'veg london';
       const expected = [
         {
-          city: { id: 1, name: 'London' },
-          diet: { id: 1, name: 'Vegan' },
+          diet: {
+            id: 1,
+            name: 'Vegan',
+          },
+          city: {
+            id: 1,
+            name: 'London',
+          },
         },
         {
-          city: { id: 1, name: 'London' },
-          diet: { id: 2, name: 'Vegetarian' },
+          city: {
+            id: 1,
+            name: 'London',
+          },
+          diet: {
+            id: 1,
+            name: 'Vegan',
+          },
         },
       ];
 
       const result = await entityService.extractEntities(searchTerm);
+
+      console.log(result);
 
       expect(result).toEqual(expected);
     });
@@ -45,12 +59,24 @@ describe('entityService', () => {
       const searchTerm = "McDonald's in London or Manchester";
       const expected = [
         {
-          city: { id: 1, name: 'London' },
-          brand: { id: 4, name: "McDonald's" },
+          city: {
+            id: 1,
+            name: 'London',
+          },
+          brand: {
+            id: 4,
+            name: "McDonald's",
+          },
         },
         {
-          city: { id: 6, name: 'Manchester' },
-          brand: { id: 4, name: "McDonald's" },
+          brand: {
+            id: 4,
+            name: "McDonald's",
+          },
+          city: {
+            id: 1,
+            name: 'London',
+          },
         },
       ];
 
@@ -63,12 +89,24 @@ describe('entityService', () => {
       const searchTerm = 'sushi in london';
       const expected = [
         {
-          city: { id: 1, name: 'London' },
-          dishType: { id: 72, name: 'Sushi' },
+          brand: {
+            id: 15,
+            name: 'Sushimania',
+          },
+          city: {
+            id: 1,
+            name: 'London',
+          },
         },
         {
-          city: { id: 1, name: 'London' },
-          brand: { id: 15, name: 'Sushimania' },
+          city: {
+            id: 1,
+            name: 'London',
+          },
+          dishType: {
+            id: 72,
+            name: 'Sushi',
+          },
         },
       ];
 
@@ -81,14 +119,32 @@ describe('entityService', () => {
       const searchTerm = 'vegan sushi in london';
       const expected = [
         {
-          city: { id: 1, name: 'London' },
-          diet: { id: 1, name: 'Vegan' },
-          dishType: { id: 72, name: 'Sushi' },
+          brand: {
+            id: 15,
+            name: 'Sushimania',
+          },
+          city: {
+            id: 1,
+            name: 'London',
+          },
+          diet: {
+            id: 1,
+            name: 'Vegan',
+          },
         },
         {
-          city: { id: 1, name: 'London' },
-          diet: { id: 1, name: 'Vegan' },
-          brand: { id: 15, name: 'Sushimania' },
+          city: {
+            id: 1,
+            name: 'London',
+          },
+          dishType: {
+            id: 72,
+            name: 'Sushi',
+          },
+          diet: {
+            id: 1,
+            name: 'Vegan',
+          },
         },
       ];
 

@@ -5,7 +5,7 @@ const entityRoutes = express.Router();
 
 entityRoutes.get('/', async (req, res, next) => {
   try {
-    const searchTerm = String(req.query.searchTerm);
+    const searchTerm = String(req.query.searchTerm) || '';
 
     const results = await entityService.extractEntities(searchTerm);
 

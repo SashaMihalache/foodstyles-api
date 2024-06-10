@@ -10,7 +10,7 @@ export const buildAggregationQuery = (words: string[]) => {
     SELECT 'dishType' as type, id, name From "DishType" WHERE name ILIKE ANY(ARRAY[$1]) UNION ALL
     SELECT 'diet' as type, id, name From "Diet" WHERE name ILIKE ANY(ARRAY[$1])
   ) AS result
-  ORDER BY LENGTH(name)
+  ORDER BY LENGTH(name) DESC
   `;
 
   mainQuery = Prisma.raw(query);
