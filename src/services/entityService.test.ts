@@ -36,8 +36,8 @@ describe('entityService', () => {
       const expected = [
         {
           diet: {
-            id: 1,
-            name: 'Vegan',
+            id: 2,
+            name: 'Vegetarian',
           },
           city: {
             id: 1,
@@ -66,8 +66,8 @@ describe('entityService', () => {
       const expected = [
         {
           city: {
-            id: 1,
-            name: 'London',
+            id: 6,
+            name: 'Manchester',
           },
           brand: {
             id: 4,

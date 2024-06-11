@@ -16,59 +16,63 @@ export const entityService = {
       filteredWords
     )) as Model[];
 
-    const result = this.generateCombinationsRecursively(queryResults);
+    const result = this.createCombinations(queryResults);
 
     return result;
   },
 
-  generateCombinationsRecursively(data: any[]) {
-    const result: any[] = [];
-    const uniqueTypes = this.computeUniqueTypes(data);
+  createCombinations(data: Model[]) {
+    const results: any[] = [];
+    const maxComboSize = this.getPossibleCombinations(data);
 
-    const helper = (acc: any, usedWords: string[], index: number) => {
-      if (index === data.length) {
-        if (Object.keys(acc).length === uniqueTypes.length) {
-          result.push({ ...acc });
+    for (let i = 0; i < data.length; i++) {
+      const currentItem = data[i];
+      const accumulator: any = {};
+
+      accumulator[currentItem.type] = this.createNode(currentItem);
+
+      for (let j = i + 1; j < data.length; j++) {
+        const nextItem = data[j];
+
+        if (accumulator[nextItem.type]) {
+          break;
         }
-        return;
+
+        if (isSimilar(currentItem.name, nextItem.name)) {
+          continue;
+        } else {
+          accumulator[nextItem.type] = this.createNode(nextItem);
+        }
       }
 
-      const { name, id, type } = data[index];
-      if (
-        usedWords.findIndex((word) =>
-          word.includes(name.toLocaleLowerCase())
-        ) !== -1
-      ) {
-        helper(acc, usedWords, index + 1);
-      } else {
-        acc[type] = { id, name };
-        usedWords.push(name.toLocaleLowerCase());
-        helper(acc, usedWords, index + 1);
-        delete acc[type];
-        usedWords.pop();
-        helper(acc, usedWords, index + 1);
+      if (Object.keys(accumulator).length === maxComboSize) {
+        results.push(accumulator);
       }
-    };
+    }
 
-    helper({}, [], 0);
-
-    return result;
+    return results;
   },
 
-  computeUniqueTypes(data: any[]) {
-    let uniqueTypes = [...new Set(data.map((item) => item.type))];
-    let typesToRemove = new Set();
+  createNode(data: Model) {
+    return {
+      id: data.id,
+      name: data.name,
+    };
+  },
+
+  getPossibleCombinations(data: Model[]) {
+    let nrOfCombinations = data
+      .map((item) => item.type)
+      .filter((value, index, self) => self.indexOf(value) === index).length;
 
     for (let i = 0; i < data.length; i++) {
       for (let j = i + 1; j < data.length; j++) {
         if (isSimilar(data[i].name, data[j].name)) {
-          typesToRemove.add(data[j].type);
+          nrOfCombinations--;
         }
       }
     }
 
-    uniqueTypes = uniqueTypes.filter((type) => !typesToRemove.has(type));
-
-    return uniqueTypes;
+    return nrOfCombinations;
   },
 };
