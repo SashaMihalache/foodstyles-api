@@ -12,7 +12,14 @@ describe('entityService', () => {
 
     it('should return only McD', async () => {
       const searchTerm = "McDonald's";
-      const expected = [{ brand: { id: 4, name: "McDonald's" } }];
+      const expected = [
+        {
+          brand: {
+            id: 4,
+            name: "McDonald's",
+          },
+        },
+      ];
       const result = await entityService.extractEntities(searchTerm);
 
       expect(result).toEqual(expected);
@@ -26,6 +33,7 @@ describe('entityService', () => {
           brand: { id: 4, name: "McDonald's" },
         },
       ];
+
       const result = await entityService.extractEntities(searchTerm);
 
       expect(result).toEqual(expected);

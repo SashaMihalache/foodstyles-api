@@ -40,9 +40,9 @@ export const entityService = {
 
         if (isSimilar(currentItem.name, nextItem.name)) {
           continue;
-        } else {
-          accumulator[nextItem.type] = this.createNode(nextItem);
         }
+
+        accumulator[nextItem.type] = this.createNode(nextItem);
       }
 
       if (Object.keys(accumulator).length === maxComboSize) {
@@ -61,15 +61,17 @@ export const entityService = {
   },
 
   getPossibleCombinations(data: Model[]) {
-    let nrOfCombinations = data
-      .map((item) => item.type)
-      .filter((value, index, self) => self.indexOf(value) === index).length;
+    let nrOfCombinations = new Set(data.map((item) => item.type)).size;
 
-    for (let i = 0; i < data.length; i++) {
-      for (let j = i + 1; j < data.length; j++) {
-        if (isSimilar(data[i].name, data[j].name)) {
-          nrOfCombinations--;
-        }
+    const hash: any = {};
+
+    for (let currentItem of data) {
+      const savedNames = Object.keys(hash);
+
+      if (savedNames.some((name) => isSimilar(name, currentItem.name))) {
+        nrOfCombinations--;
+      } else {
+        hash[currentItem.name] = true;
       }
     }
 
